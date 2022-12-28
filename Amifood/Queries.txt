@@ -1,0 +1,61 @@
+
+Creation of Database
+
+
+Creation of Tables 
+
+CREATE TABLE Food_item (
+    Food_id int(3) PRIMARY KEY,
+    Name char(50),
+    Unit_Price float(5,2),
+    Category char(50)
+);
+
+Insertion of values into tables 
+
+INSERT INTO Food_item
+VALUES (1,'Idli Wada Combo',45.00, 'South Indian Combo');
+
+Displaying Table
+ SELECT * from food_item;
+
+ Query 1
+
+  -- A Query to sort food items by price
+ SELECT Food_id, Name, Unit_Price, Category
+  from (
+select *,
+row_number() over (partition by Unit_Price ) as rn
+from Food_item) x
+where x.rn >1 ;
+
+Query 2
+
+-- A Query that fetch food of same categories but different prices.
+select f1.*
+from Food_item f1
+join Food_item f2 on f1.Food_id <> f2.Food_id and f1.Category = f2.Category and f1.Unit_Price <> f2.Unit_Price
+;
+
+
+Query 3
+
+--Add Foreign key with conditions 
+ALTER TABLE Food_item
+ ADD COLUMN Cafeteria_id varchar(5);
+ Alter table
+  food_item
+add
+  FOREIGN KEY (Cafeteria_id) references Cafeteria (Cafeteria_id);
+  UPDATE food_item SET Cafeteria_id= 'DP'
+WHERE Food_id between 1 and 40;
+
+
+Query 4 
+
+-- Inserting values from one table into another 
+INSERT INTO Payment(Name, Unit_Price)
+  SELECT Name, Unit_Price
+    FROM Food_item WHERE Name='Paneer Chilly Combo';
+
+  
