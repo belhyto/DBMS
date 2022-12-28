@@ -28,4 +28,13 @@ create database inventory_db;
      --Display all data of specified row from table
      select * from customer where cust_id=2;
      
+    --Display specified data of from whole table
+     select name, contact from customer;
+     
+     --Display specified data of specified row from table
+     select name, contact from customer where cust_id=1;
+     
+     --Display data of all rows that start with '  %' characters from table
+     select * from customer where address like '12%';
+     
      
